@@ -33,5 +33,7 @@ jobs:
           cd pytorch-v2.2.1
           pip install networkx==2.8.8
           pip install -r requirements.txt
-          CC=clang-17 CXX=clang++-17 CXXFLAGS="-std=c++20 -stdlib=libc++" python setup.py
+          CC=clang-17 CXX=clang++-17 CXXFLAGS="-std=c++20 -stdlib=libc++" python setup.py bdist_wheel
+          ls dist/
+
 
