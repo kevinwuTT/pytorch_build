@@ -13,11 +13,16 @@ runs:
       with:
         cmake-version: '3.18.0'
 
-    - name: Install Dependencies
+    - name: Set up Clang
       shell: bash
       run: |
-        df -h
+        sudo add-apt-repository "deb http://apt.llvm.org/focal/ llvm-toolchain-focal-17 main"
         sudo apt update
         sudo apt install clang-17
+
+    - name: Install other dependencies
+      shell: bash
+      run: |
+        sudo apt update
         sudo apt install libomp-17-dev
 
