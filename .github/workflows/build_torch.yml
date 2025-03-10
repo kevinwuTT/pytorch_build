@@ -18,11 +18,26 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/common_repo_setup
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
+		  - name: Setup venv
+			  shell: bash
+			  run: |
+				  python3 -m venv ~/venv
+				  . ~/venv/bin/activate
+
+      - name: Download Pytorch source
         run: |
           wget https://github.com/pytorch/pytorch/releases/download/v2.2.1/pytorch-v2.2.1.tar.gz
           tar xvf pytorch-v2.2.1.tar.gz
           cd pytorch-v2.2.1
-          pwd
+
+      - name: Install python requirements
+        run: |
+          pip install networkx==2.8.8
+          pip install -r requirements.txt
+
+      - name: Build release
+         run: |
+          CC=clang-17 CXX=clang++-17 CXXFLAGS="-std=c++20 -stdlib=libc++" python setup.py
+

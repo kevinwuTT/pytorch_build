@@ -1,0 +1,23 @@
+name: 'Setup Build Environment'
+description: 'Sets up build tools, dev libraries, and other dependencies'
+runs:
+  using: "composite"
+  steps:
+    - name: Setup Python 3.8
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.8'
+
+		- name: Setup cmake
+      uses: jwlawson/actions-setup-cmake@v2
+      with:
+        cmake-version: '3.18.0'
+
+    - name: Install Dependencies
+      shell: bash
+      run: |
+        df -h
+				sudo apt update
+				sudo apt install clang-17
+				sudo apt install libomp-17-dev
+
