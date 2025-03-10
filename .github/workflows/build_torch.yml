@@ -26,18 +26,12 @@ jobs:
           python3 -m venv ~/venv
           . ~/venv/bin/activate
 
-      - name: Download Pytorch source
+      - name: Download Pytorch source, install requirements, and build
         run: |
           wget https://github.com/pytorch/pytorch/releases/download/v2.2.1/pytorch-v2.2.1.tar.gz
           tar xf pytorch-v2.2.1.tar.gz
           cd pytorch-v2.2.1
-
-      - name: Install python requirements
-        run: |
           pip install networkx==2.8.8
           pip install -r requirements.txt
-
-      - name: Build release
-        run: |
           CC=clang-17 CXX=clang++-17 CXXFLAGS="-std=c++20 -stdlib=libc++" python setup.py
 
