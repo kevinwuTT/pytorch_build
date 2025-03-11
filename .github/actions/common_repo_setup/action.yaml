@@ -19,6 +19,7 @@ runs:
         wget https://apt.llvm.org/llvm.sh
         chmod +x llvm.sh
         sudo ./llvm.sh 17
+        sudo apt install libc++-17-dev libc++abi-17-dev
 
     - name: Install other dependencies
       shell: bash
