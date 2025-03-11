@@ -26,4 +26,3 @@ runs:
       run: |
         sudo apt update
         sudo apt install libomp-17-dev
-        sudo apt install build-essential

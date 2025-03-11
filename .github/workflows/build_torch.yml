@@ -7,6 +7,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+env:
+  TORCH_VERSION: v2.2.1
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -28,12 +31,17 @@ jobs:
 
       - name: Download Pytorch source, install requirements, and build
         run: |
-          wget https://github.com/pytorch/pytorch/releases/download/v2.2.1/pytorch-v2.2.1.tar.gz
-          tar xf pytorch-v2.2.1.tar.gz
-          cd pytorch-v2.2.1
+          wget https://github.com/pytorch/pytorch/releases/download/$TORCH_VERSION/pytorch-$TORCH_VERSION.tar.gz
+          tar xf pytorch-$TORCH_VERSION.tar.gz
+          cd pytorch-$TORCH_VERSION
           pip install networkx==2.8.8
           pip install -r requirements.txt
           CC=clang-17 CXX=clang++-17 CXXFLAGS="-std=c++20 -stdlib=libc++" python setup.py bdist_wheel
           ls dist/
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pytorch-wheel
+          path: pytorch-$TORCH_VERSION/dist/*.whl
 
 
